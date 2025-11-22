@@ -9,17 +9,26 @@ import com.anibal.curso.srpingboot.webapp.springboot_web.models.dto.ParamDto;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
 @RestController
 @RequestMapping("/api/path-variables")
 public class PathVariableController {
-
+    @Value("${config.username}")
+    private String username;
+    
+    @Value("${config.message}")
+    private String message;
+    
+    @Value("${config.listOfValues}")
+    private String[] listOfValues;
+    
+    @Value("${config.code}")
+    private Integer code;
 
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
@@ -41,5 +50,14 @@ public class PathVariableController {
         
         return user;
     }
-    
+
+    @GetMapping("/values")
+    public Map<String, Object> values() {
+        return Map.of(
+            "username", this.username,
+            "message", this.message,
+            "listOfValues", this.listOfValues,
+            "code", this.code
+        );
+    }    
 }
