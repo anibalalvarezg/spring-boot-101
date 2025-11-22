@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +42,9 @@ public class PathVariableController {
     @Value("#{${config.valuesMap}.key1}")
     private String key1;
 
+    @Autowired
+    private Environment env;
+
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
         ParamDto param = new ParamDto();
@@ -67,7 +72,7 @@ public class PathVariableController {
             "username", this.username,
             "message", message,
             "listOfValues", this.listOfValues,
-            "code", this.code,
+            "code", env.getProperty("config.code", Integer.class),
             "valueList", this.valueList,
             "valueString", this.valueString,
             "valuesMap", this.valuesMap,
