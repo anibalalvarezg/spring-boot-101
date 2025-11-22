@@ -27,6 +27,10 @@
         </tbody>
 
     </table>
-    <a th:href="@{/details}">Detalles</a>
+    <a th:href="@{/details}">Detalles</a><br>
+    <a th:href="@{'/api/params/foo?message=' + ${title}}">params</a><br>
+    <a th:href="@{/api/params/foo(message=${title}) }">params</a><br>
+    <a th:href="@{/api/params/bar(text=${title}, code=32123) }">bar</a>
+    <a th:href="@{'/api/path-variables/baz/' + ${title}}">baz</a>
 </body>
 </html>
