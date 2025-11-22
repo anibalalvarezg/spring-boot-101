@@ -21,9 +21,6 @@ public class PathVariableController {
     @Value("${config.username}")
     private String username;
     
-    @Value("${config.message}")
-    private String message;
-    
     @Value("${config.listOfValues}")
     private String[] listOfValues;
     
@@ -52,10 +49,10 @@ public class PathVariableController {
     }
 
     @GetMapping("/values")
-    public Map<String, Object> values() {
+    public Map<String, Object> values(@Value("${config.message}") String message) {
         return Map.of(
             "username", this.username,
-            "message", this.message,
+            "message", message,
             "listOfValues", this.listOfValues,
             "code", this.code
         );
