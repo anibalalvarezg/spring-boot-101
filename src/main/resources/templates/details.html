@@ -13,5 +13,7 @@
         <li th:if="${user.email}" th:text="${user.email}"></li>
         <li th:if="${not (user.email != null)}" th:text="'Email not provided'"></li>
     </ul>
+
+    <a th:href="@{/list}">Back to User List</a>
 </body>
 </html>
