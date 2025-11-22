@@ -34,6 +34,12 @@ public class PathVariableController {
     @Value("#{'${config.listOfValues}'.toUpperCase()}")
     private String valueString;
 
+    @Value("#{${config.valuesMap}}")
+    private Map<String, Object> valuesMap;
+
+    @Value("#{${config.valuesMap}.key1}")
+    private String key1;
+
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
         ParamDto param = new ParamDto();
@@ -63,7 +69,9 @@ public class PathVariableController {
             "listOfValues", this.listOfValues,
             "code", this.code,
             "valueList", this.valueList,
-            "valueString", this.valueString
+            "valueString", this.valueString,
+            "valuesMap", this.valuesMap,
+            "key1", this.key1
         );
     }    
 }
