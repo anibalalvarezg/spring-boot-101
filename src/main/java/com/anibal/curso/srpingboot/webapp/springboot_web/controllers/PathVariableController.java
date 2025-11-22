@@ -7,6 +7,7 @@ import com.anibal.curso.srpingboot.webapp.springboot_web.models.User;
 import com.anibal.curso.srpingboot.webapp.springboot_web.models.dto.ParamDto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -22,10 +23,16 @@ public class PathVariableController {
     private String username;
     
     @Value("${config.listOfValues}")
-    private String[] listOfValues;
+    private List<String> listOfValues;
     
     @Value("${config.code}")
     private Integer code;
+
+    @Value("#{'${config.listOfValues}'.split(',')}")
+    private String[] valueList;
+    
+    @Value("#{'${config.listOfValues}'.toUpperCase()}")
+    private String valueString;
 
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
@@ -54,7 +61,9 @@ public class PathVariableController {
             "username", this.username,
             "message", message,
             "listOfValues", this.listOfValues,
-            "code", this.code
+            "code", this.code,
+            "valueList", this.valueList,
+            "valueString", this.valueString
         );
     }    
 }
